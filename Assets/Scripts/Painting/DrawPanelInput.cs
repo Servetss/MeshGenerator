@@ -15,6 +15,8 @@ public class DrawPanelInput : MonoBehaviour
 
     private Painting _painting;
 
+    private bool _isOnDrawField;
+
     private bool _isPainting;
 
     private void Awake()
@@ -24,7 +26,7 @@ public class DrawPanelInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && _painting.GetVectorOutOfBorder(Input.mousePosition) == false)
+        if (Input.GetMouseButton(0) && _isOnDrawField)
         {
             _isPainting = true;
 
@@ -47,5 +49,16 @@ public class DrawPanelInput : MonoBehaviour
         MeshContainer meshContainer = _meshGenerator.GenerateMesh(dotsPoint);
 
         _meshReplacer.Replace(meshContainer);
+    }
+
+    // Called from DrawField.cs
+    public void MouseOnDrawField()
+    {
+        _isOnDrawField = true;
+    }
+
+    public void MouseOutOfDrawField()
+    {
+        _isOnDrawField = false;
     }
 }
